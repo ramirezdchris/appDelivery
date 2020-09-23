@@ -11,12 +11,13 @@ public class Platillo {
     private Long imagen;
     private String descripcion;
     private int orden;
+    private Boolean disponible;
 
     public Platillo() {
     }
 
     public Platillo(Long platilloId, Menu menu, String nombre, double precioBase, Long imagen, String descripcion,
-                    int orden) {
+                    int orden, Boolean disponible) {
         this.platilloId = platilloId;
         this.menu = menu;
         this.nombre = nombre;
@@ -24,6 +25,7 @@ public class Platillo {
         this.imagen = imagen;
         this.descripcion = descripcion;
         this.orden = orden;
+        this.disponible = disponible;
     }
 
     public Long getPlatilloId() {
@@ -82,6 +84,14 @@ public class Platillo {
         this.orden = orden;
     }
 
+    public Boolean getDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(Boolean disponible) {
+        this.disponible = disponible;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
@@ -99,6 +109,8 @@ public class Platillo {
         builder.append(descripcion);
         builder.append("',orden:'");
         builder.append(orden);
+        builder.append("',disponible:'");
+        builder.append(disponible);
         builder.append("'}");
         return builder.toString();
     }

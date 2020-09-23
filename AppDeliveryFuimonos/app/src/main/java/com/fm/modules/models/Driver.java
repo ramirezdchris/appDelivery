@@ -17,12 +17,13 @@ public class Driver {
     @JsonFormat(pattern = "HH:mm:ss")
     private Date horaDeSalida;
     private Date fechaCreado;
+    private Boolean statusAsignado;
 
     public Driver() {
     }
 
     public Driver(Long driverId, String username, String password, String nombreDriver, boolean habilitado,
-                  Date horaDeEntrada, Date horaDeSalida, Date fechaCreado) {
+                  Date horaDeEntrada, Date horaDeSalida, Date fechaCreado, Boolean statusAsignado) {
         this.driverId = driverId;
         this.username = username;
         this.password = password;
@@ -31,6 +32,7 @@ public class Driver {
         this.horaDeEntrada = horaDeEntrada;
         this.horaDeSalida = horaDeSalida;
         this.fechaCreado = fechaCreado;
+        this.statusAsignado = statusAsignado;
     }
 
     public Long getDriverId() {
@@ -97,6 +99,14 @@ public class Driver {
         this.fechaCreado = fechaCreado;
     }
 
+    public Boolean getStatusAsignado() {
+        return statusAsignado;
+    }
+
+    public void setStatusAsignado(Boolean statusAsignado) {
+        this.statusAsignado = statusAsignado;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
@@ -116,6 +126,8 @@ public class Driver {
         builder.append(horaDeSalida);
         builder.append("',fechaCreado:'");
         builder.append(fechaCreado);
+        builder.append("',statusAsignado:'");
+        builder.append(statusAsignado);
         builder.append("'}");
         return builder.toString();
     }

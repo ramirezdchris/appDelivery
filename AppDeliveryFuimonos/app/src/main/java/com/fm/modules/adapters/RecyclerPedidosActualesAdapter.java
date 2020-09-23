@@ -53,6 +53,8 @@ public class RecyclerPedidosActualesAdapter extends RecyclerView.Adapter<Recycle
     ObtenerUsuario2 obtenerUsuario = new ObtenerUsuario2();
     ActualizarPedido2 actualizarPedido = new ActualizarPedido2();
 
+    ActualizarStatusDriver actualizarStatusDriver = new ActualizarStatusDriver();
+
     Pedido upPedido2 = new Pedido();
     RespuestaPedidosDriver upRespuestaPedidoDriver = new RespuestaPedidosDriver();
 
@@ -135,6 +137,8 @@ public class RecyclerPedidosActualesAdapter extends RecyclerView.Adapter<Recycle
                     obtenerUsuario.execute();
                     actualizarPedido.execute();
 
+                    actualizarStatusDriver.execute();
+
                     Intent intent = new Intent(context, Principal.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     context.startActivity(intent);
                     //reiniciarAsynkProcess();
@@ -161,6 +165,9 @@ public class RecyclerPedidosActualesAdapter extends RecyclerView.Adapter<Recycle
 
         actualizarPedido.cancel(true);
         actualizarPedido = new ActualizarPedido2();
+
+        actualizarStatusDriver.cancel(true);
+        actualizarStatusDriver = new ActualizarStatusDriver();
     }
 
 
@@ -332,6 +339,53 @@ public class RecyclerPedidosActualesAdapter extends RecyclerView.Adapter<Recycle
                 System.out.println(upPedido2.toString());
                 System.out.println(upPedido2.getStatus());
                 pedidoService2.actualizarPedidoPorId(upPedido2);
+            }catch (Exception e){
+                System.out.println("Error en UnderThreash ActualizarPedidoce:" +e.getMessage() +" " +e.getClass());
+                System.out.println(upPedido2.toString());
+            }
+            return usuarios;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(List<Pedido> pedidos) {
+            super.onPostExecute(pedidos);
+            try {
+                if (!pedidos.isEmpty()){
+
+                    //Toast.makeText(context, "Usuario Cargados" +pedidos.size(), Toast.LENGTH_SHORT).show();
+                }else{
+                    //Toast.makeText(context, "Usuario No Cargados" +pedidos.size(), Toast.LENGTH_SHORT).show();
+                    //reiniciarAsynkProcess();
+                }
+                reiniciarAsynkProcess();
+            }catch (Throwable throwable){
+                System.out.println("Error Activity: " +throwable.getMessage());
+                throwable.printStackTrace();
+            }
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            super.onProgressUpdate(values);
+        }
+    }
+
+    public class ActualizarStatusDriver extends AsyncTask<String, String, List<Pedido>> {
+
+        @Override
+        protected List<Pedido> doInBackground(String... strings) {
+            List<Pedido> usuarios = new ArrayList<>();
+            Driver driver = Logued.driverLogued;
+            try {
+                DriverService driverService = new DriverService();
+                driver.setStatusAsignado(false);
+                driverService.actualizarDriverPorId(driver);
+
             }catch (Exception e){
                 System.out.println("Error en UnderThreash ActualizarPedidoce:" +e.getMessage() +" " +e.getClass());
                 System.out.println(upPedido2.toString());

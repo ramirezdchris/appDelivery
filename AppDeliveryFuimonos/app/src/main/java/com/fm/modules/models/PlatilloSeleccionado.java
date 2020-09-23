@@ -7,17 +7,19 @@ public class PlatilloSeleccionado {
     private Pedido pedido;
     private String nombre;
     private double precio;
+    private int cantidad;
 
     public PlatilloSeleccionado() {
     }
 
     public PlatilloSeleccionado(Long platilloSeleccionadoId, Platillo platillo, Pedido pedido, String nombre,
-                                double precio) {
+                                double precio, int cantidad) {
         this.platilloSeleccionadoId = platilloSeleccionadoId;
         this.platillo = platillo;
         this.pedido = pedido;
         this.nombre = nombre;
         this.precio = precio;
+        this.cantidad = cantidad;
     }
 
     public Long getPlatilloSeleccionadoId() {
@@ -60,6 +62,14 @@ public class PlatilloSeleccionado {
         this.precio = precio;
     }
 
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
@@ -73,6 +83,8 @@ public class PlatilloSeleccionado {
         builder.append(nombre);
         builder.append("',precio:'");
         builder.append(precio);
+        builder.append("',cantidad:'");
+        builder.append(cantidad);
         builder.append("'}");
         return builder.toString();
     }
