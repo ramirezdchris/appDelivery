@@ -103,7 +103,7 @@ public class RecyclerPedidosAdapter extends RecyclerView.Adapter<RecyclerPedidos
         public void asignarDatos(final RespuestaPedidosDriver res){
             tvNombreRestaurante.setText(res.getRestaurante());
             tvDireccionCliente.setText(res.getDireccion());
-            tvPrecioPedido.setText("$" +String.valueOf(res.getTotalDePedido()));
+            tvPrecioPedido.setText("$" +String.valueOf(res.getTotalEnRestautante()));
             btnTomarPedido.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
 
 import com.fm.modules.MainActivity;
 import com.fm.modules.R;
@@ -33,6 +34,8 @@ public class Logon extends AppCompatActivity {
     private Button buttonLogin;
     private ImageView buttonsing;
 
+    private AppCompatTextView tvWithoutAccount;
+    private AppCompatTextView tvRegisterNewAccount;
 
     ProgressBar progressBar;
     Acceder acceder = new Acceder();
@@ -47,6 +50,12 @@ public class Logon extends AppCompatActivity {
         buttonLogin = (Button) findViewById(R.id.btnLogin);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         buttonsing = (ImageView) findViewById(R.id.btnFuimonosSignUp);
+
+        tvWithoutAccount = findViewById(R.id.tvWithoutAccount);
+        tvRegisterNewAccount = findViewById(R.id.tvRegisterNewAccount);
+        tvWithoutAccount.setVisibility(View.INVISIBLE);
+        tvRegisterNewAccount.setVisibility(View.INVISIBLE);
+        buttonsing.setVisibility(View.INVISIBLE);
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override

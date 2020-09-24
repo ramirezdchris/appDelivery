@@ -23,7 +23,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/space_4x"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="@dimen/space_4x"
         android:layout_marginBottom="4dp"
         android:includeFontPadding="false"
@@ -57,26 +57,9 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/purple"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/btnPassErr"
         app:layout_constraintEnd_toEndOf="@+id/tvTitle"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/tvTitle"
-        app:layout_constraintTop_toBottomOf="@+id/ivLock"
-        app:layout_constraintVertical_bias="0.545" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnPassErr"
-        style="@style/PrimaryButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="17dp"
-        android:layout_marginBottom="256dp"
-        android:paddingStart="@dimen/space_4x"
-        android:paddingEnd="@dimen/space_4x"
-        android:text="@string/come_back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/tvTitle"
-        app:layout_constraintStart_toStartOf="@+id/tvTitle"
-        app:layout_constraintTop_toBottomOf="@+id/tvRecoverySuccessDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/ivLock" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -106,7 +106,7 @@ public class RecyclerPedidosActualesAdapter extends RecyclerView.Adapter<Recycle
         public void asignarDatos(final RespuestaPedidosDriver res){
             tvNombreRestaurante.setText(res.getUsuario());
             tvDireccionCliente.setText(res.getDireccion());
-            tvPrecioPedido.setText("$" +String.valueOf(res.getTotalDePedido()));
+            tvPrecioPedido.setText("$" +String.valueOf(res.getTotalEnRestautante()));
             tvFormadePago.setText("Forma de pago: " +res.getFormaDePago());
             btnTomarPedido.setText("Entregar a cliente");
             btnTomarPedido.setOnClickListener(new View.OnClickListener() {

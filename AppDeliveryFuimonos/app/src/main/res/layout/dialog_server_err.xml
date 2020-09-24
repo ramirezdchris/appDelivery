@@ -85,19 +85,4 @@
         app:layout_constraintTop_toBottomOf="@+id/tvRecoverySuccessDescription"
         app:layout_constraintVertical_bias="0.515" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnPassErr"
-        style="@style/PrimaryButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="67dp"
-        android:layout_marginBottom="168dp"
-        android:paddingStart="@dimen/space_4x"
-        android:paddingEnd="@dimen/space_4x"
-        android:text="@string/come_back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/tvTitle"
-        app:layout_constraintStart_toStartOf="@+id/tvTitle"
-        app:layout_constraintTop_toBottomOf="@+id/xxrs" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
