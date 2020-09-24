@@ -146,9 +146,9 @@ public class Pedidos extends Fragment {
                     rvPedidos.setLayoutManager(new LinearLayoutManager(getContext()));
                     rvPedidos.setAdapter(adapter);
                     swRefreshPedidos.setRefreshing(false);
-                    Toast.makeText(getContext(), "Pedidso Cargados" +pedidos.size(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "Pedidso Cargados" +pedidos.size(), Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(getContext(), "Pedidos No Cargados" +pedidos.size(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "Pedidos No Cargados" +pedidos.size(), Toast.LENGTH_SHORT).show();
                     //reiniciarAsynkProcess();
                     RecyclerPedidosAdapter adapter = new RecyclerPedidosAdapter(getContext(), pedidos);
                     rvPedidos.setLayoutManager(new LinearLayoutManager(getContext()));

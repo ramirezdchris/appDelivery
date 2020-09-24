@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Fuimonos</string>
+    <string name="app_name">Fuimonos Delivery</string>
     <string name="log_in">Iniciá\nSesión</string>
     <string name="email">Correo electrónico</string>
     <string name="password">Contraseña</string>

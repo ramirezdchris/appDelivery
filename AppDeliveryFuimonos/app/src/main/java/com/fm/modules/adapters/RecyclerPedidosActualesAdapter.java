@@ -52,8 +52,7 @@ public class RecyclerPedidosActualesAdapter extends RecyclerView.Adapter<Recycle
     ObtenerDriver2 obtenerDriver = new ObtenerDriver2();
     ObtenerUsuario2 obtenerUsuario = new ObtenerUsuario2();
     ActualizarPedido2 actualizarPedido = new ActualizarPedido2();
-
-    ActualizarStatusDriver actualizarStatusDriver = new ActualizarStatusDriver();
+    ActualizarDriver actualizarDriver = new ActualizarDriver();
 
     Pedido upPedido2 = new Pedido();
     RespuestaPedidosDriver upRespuestaPedidoDriver = new RespuestaPedidosDriver();
@@ -137,8 +136,6 @@ public class RecyclerPedidosActualesAdapter extends RecyclerView.Adapter<Recycle
                     obtenerUsuario.execute();
                     actualizarPedido.execute();
 
-                    actualizarStatusDriver.execute();
-
                     Intent intent = new Intent(context, Principal.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     context.startActivity(intent);
                     //reiniciarAsynkProcess();
@@ -166,8 +163,8 @@ public class RecyclerPedidosActualesAdapter extends RecyclerView.Adapter<Recycle
         actualizarPedido.cancel(true);
         actualizarPedido = new ActualizarPedido2();
 
-        actualizarStatusDriver.cancel(true);
-        actualizarStatusDriver = new ActualizarStatusDriver();
+        actualizarDriver.cancel(true);
+        actualizarDriver = new ActualizarDriver();
     }
 
 
@@ -244,9 +241,9 @@ public class RecyclerPedidosActualesAdapter extends RecyclerView.Adapter<Recycle
             try {
                 if (!drivers.isEmpty()){
 
-                    Toast.makeText(context, "Pedidso Cargados" +drivers.size(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, "Pedidso Cargados" +drivers.size(), Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(context, "Pedidos No Cargados" +drivers.size(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, "Pedidos No Cargados" +drivers.size(), Toast.LENGTH_SHORT).show();
                 }
                 //reiniciarAsynkProcess();
             }catch (Throwable throwable){
@@ -289,9 +286,9 @@ public class RecyclerPedidosActualesAdapter extends RecyclerView.Adapter<Recycle
             try {
                 if (!usuarios.isEmpty()){
 
-                    Toast.makeText(context, "Usuario Cargados" +usuarios.size(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, "Usuario Cargados" +usuarios.size(), Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(context, "Usuario No Cargados" +usuarios.size(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, "Usuario No Cargados" +usuarios.size(), Toast.LENGTH_SHORT).show();
                     //reiniciarAsynkProcess();
                 }
                 //reiniciarAsynkProcess();
@@ -339,6 +336,7 @@ public class RecyclerPedidosActualesAdapter extends RecyclerView.Adapter<Recycle
                 System.out.println(upPedido2.toString());
                 System.out.println(upPedido2.getStatus());
                 pedidoService2.actualizarPedidoPorId(upPedido2);
+
             }catch (Exception e){
                 System.out.println("Error en UnderThreash ActualizarPedidoce:" +e.getMessage() +" " +e.getClass());
                 System.out.println(upPedido2.toString());
@@ -355,14 +353,9 @@ public class RecyclerPedidosActualesAdapter extends RecyclerView.Adapter<Recycle
         protected void onPostExecute(List<Pedido> pedidos) {
             super.onPostExecute(pedidos);
             try {
-                if (!pedidos.isEmpty()){
-
-                    //Toast.makeText(context, "Usuario Cargados" +pedidos.size(), Toast.LENGTH_SHORT).show();
-                }else{
-                    //Toast.makeText(context, "Usuario No Cargados" +pedidos.size(), Toast.LENGTH_SHORT).show();
-                    //reiniciarAsynkProcess();
-                }
-                reiniciarAsynkProcess();
+                actualizarDriver.execute();
+                System.out.println("Actualizar Driver");
+                //reiniciarAsynkProcess();
             }catch (Throwable throwable){
                 System.out.println("Error Activity: " +throwable.getMessage());
                 throwable.printStackTrace();
@@ -375,22 +368,25 @@ public class RecyclerPedidosActualesAdapter extends RecyclerView.Adapter<Recycle
         }
     }
 
-    public class ActualizarStatusDriver extends AsyncTask<String, String, List<Pedido>> {
+    public class ActualizarDriver extends AsyncTask<String, String, Driver> {
 
         @Override
-        protected List<Pedido> doInBackground(String... strings) {
+        protected Driver doInBackground(String... strings) {
             List<Pedido> usuarios = new ArrayList<>();
             Driver driver = Logued.driverLogued;
             try {
+                PedidoService pedidoService2 = new PedidoService();
                 DriverService driverService = new DriverService();
-                driver.setStatusAsignado(false);
-                driverService.actualizarDriverPorId(driver);
-
+                Logued.driverLogued.setStatusAsignado(false);
+                System.out.println("Driver a actualizar: " +Logued.driverLogued.toString());
+                driverService.actualizarDriverPorId(Logued.driverLogued);
+                driver = Logued.driverLogued;
+                reiniciarAsynkProcess();
             }catch (Exception e){
                 System.out.println("Error en UnderThreash ActualizarPedidoce:" +e.getMessage() +" " +e.getClass());
                 System.out.println(upPedido2.toString());
             }
-            return usuarios;
+            return driver;
         }
 
         @Override
@@ -399,10 +395,10 @@ public class RecyclerPedidosActualesAdapter extends RecyclerView.Adapter<Recycle
         }
 
         @Override
-        protected void onPostExecute(List<Pedido> pedidos) {
-            super.onPostExecute(pedidos);
+        protected void onPostExecute(Driver driver) {
+            super.onPostExecute(driver);
             try {
-                if (!pedidos.isEmpty()){
+                if (driver != null){
 
                     //Toast.makeText(context, "Usuario Cargados" +pedidos.size(), Toast.LENGTH_SHORT).show();
                 }else{
