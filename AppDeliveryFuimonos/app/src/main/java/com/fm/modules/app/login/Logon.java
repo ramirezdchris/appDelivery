@@ -2,6 +2,7 @@ package com.fm.modules.app.login;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -40,6 +41,9 @@ public class Logon extends AppCompatActivity {
     ProgressBar progressBar;
     Acceder acceder = new Acceder();
 
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,8 +79,19 @@ public class Logon extends AppCompatActivity {
             }
         });
 
+        sharedListener();
     }
 
+    private void sharedListener() {
+        sharedPreferences = getSharedPreferences("LogonData", MODE_PRIVATE);
+        String usuarioPref = sharedPreferences.getString("email", "neles");
+        String passwPref = sharedPreferences.getString("password", "neles");
+        if (!"neles".equals(usuarioPref) && !"neles".equals(passwPref)) {
+            usuario = usuarioPref;
+            passw = passwPref;
+            acceder.execute();
+        }
+    }
 
     public boolean isNetActive() {
         boolean c = false;
@@ -143,6 +158,17 @@ public class Logon extends AppCompatActivity {
                     v = driverService.signIn(d);
                     if (v > 0){
                         d = driverService.obtenerDriverPorId((long) v);
+                        if (d != null) {
+                            editor = sharedPreferences.edit();
+                            editor.putString("email", usuario);
+                            editor.putString("password", passw);
+                            editor.apply();
+                        } else {
+                            editor = sharedPreferences.edit();
+                            editor.putString("email", "neles");
+                            editor.putString("password", "neles");
+                            editor.commit();
+                        }
                     }
                     Logued.driverLogued = d;
                 }

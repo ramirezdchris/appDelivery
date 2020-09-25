@@ -31,6 +31,7 @@ import com.fm.modules.service.PedidoService;
 import com.fm.modules.service.RestauranteService;
 import com.fm.modules.service.UsuarioService;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,7 @@ public class RecyclerPedidosAdapter extends RecyclerView.Adapter<RecyclerPedidos
 
     SimpleDateFormat ffecha = new SimpleDateFormat("yyyy-MM-dd");
     SimpleDateFormat fhora = new SimpleDateFormat("HH:mm:ss");
+    DecimalFormat decimalFormat = new DecimalFormat("#.##");
 
     RespuestaPedidosDriver resObt;
     Restaurante buscarRestaurante = new Restaurante();
@@ -89,7 +91,7 @@ public class RecyclerPedidosAdapter extends RecyclerView.Adapter<RecyclerPedidos
         AppCompatTextView tvDireccionCliente;
         AppCompatTextView tvPrecioPedido;
         AppCompatTextView btnTomarPedido;
-
+        AppCompatTextView btnNumeroOrden;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -98,12 +100,15 @@ public class RecyclerPedidosAdapter extends RecyclerView.Adapter<RecyclerPedidos
             tvDireccionCliente = itemView.findViewById(R.id.tvDirecionCliente);
             tvPrecioPedido = itemView.findViewById(R.id.tvPrecioPedido);
             btnTomarPedido = itemView.findViewById(R.id.btnTomarPedido);
+            btnNumeroOrden = itemView.findViewById(R.id.btnNumeroOrden);
         }
 
         public void asignarDatos(final RespuestaPedidosDriver res){
             tvNombreRestaurante.setText(res.getRestaurante());
             tvDireccionCliente.setText(res.getDireccion());
-            tvPrecioPedido.setText("$" +String.valueOf(res.getTotalEnRestautante()));
+            String precioPedido = decimalFormat.format(res.getTotalEnRestautante());
+            tvPrecioPedido.setText("$" +precioPedido);
+            btnNumeroOrden.setText("Orden #" +res.getPedidoId());
             btnTomarPedido.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

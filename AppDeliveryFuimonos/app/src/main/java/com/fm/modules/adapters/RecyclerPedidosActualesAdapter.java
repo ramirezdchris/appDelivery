@@ -28,6 +28,7 @@ import com.fm.modules.service.PedidoService;
 import com.fm.modules.service.RestauranteService;
 import com.fm.modules.service.UsuarioService;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,7 @@ public class RecyclerPedidosActualesAdapter extends RecyclerView.Adapter<Recycle
 
     SimpleDateFormat ffecha = new SimpleDateFormat("yyyy-MM-dd");
     SimpleDateFormat fhora = new SimpleDateFormat("HH:mm:ss");
+    DecimalFormat decimalFormat = new DecimalFormat("#.##");
 
     // Java8
     // JavaTime - usar atributo
@@ -90,6 +92,7 @@ public class RecyclerPedidosActualesAdapter extends RecyclerView.Adapter<Recycle
         AppCompatTextView tvDireccionCliente;
         AppCompatTextView tvPrecioPedido;
         AppCompatTextView tvFormadePago;
+        AppCompatTextView btnNumeroOrden;
         AppCompatTextView btnTomarPedido;
 
 
@@ -100,14 +103,17 @@ public class RecyclerPedidosActualesAdapter extends RecyclerView.Adapter<Recycle
             tvDireccionCliente = itemView.findViewById(R.id.tvDirecionCliente);
             tvPrecioPedido = itemView.findViewById(R.id.tvPrecioPedido);
             tvFormadePago = itemView.findViewById(R.id.tvFormadePago);
+            btnNumeroOrden = itemView.findViewById(R.id.btnNumeroOrden);
             btnTomarPedido = itemView.findViewById(R.id.btnTomarPedido);
         }
 
         public void asignarDatos(final RespuestaPedidosDriver res){
             tvNombreRestaurante.setText(res.getUsuario());
             tvDireccionCliente.setText(res.getDireccion());
-            tvPrecioPedido.setText("$" +String.valueOf(res.getTotalEnRestautante()));
+            String precioPedido = decimalFormat.format(res.getTotalEnRestautante());
+            tvPrecioPedido.setText("$" +precioPedido);
             tvFormadePago.setText("Forma de pago: " +res.getFormaDePago());
+            btnNumeroOrden.setText("Orden #" +res.getPedidoId());
             btnTomarPedido.setText("Entregar a cliente");
             btnTomarPedido.setOnClickListener(new View.OnClickListener() {
                 @Override

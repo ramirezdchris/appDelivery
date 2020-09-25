@@ -104,6 +104,26 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tvFoodPrice" />
 
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/btnNumeroOrden"
+                android:layout_width="123dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="248dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/add_food_action_bacground_orange"
+                android:includeFontPadding="false"
+                android:paddingStart="@dimen/space_2x"
+                android:paddingTop="@dimen/space_4n"
+                android:paddingEnd="@dimen/space_2x"
+                android:paddingBottom="@dimen/space_4n"
+                android:text="@string/tomar_pedido"
+                android:textColor="@color/purple"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvPrecioPedido" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
